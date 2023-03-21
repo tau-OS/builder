@@ -7,18 +7,18 @@ name: Docker
 
 on:
   schedule:
-    - cron: '45 4 * * *'
+    - cron: "45 4 * * *"
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*' ]
+    tags: ["v*.*.*"]
+  workflow_dispatch:
 
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-
 
 jobs:
   build:
@@ -40,7 +40,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: sigstore/cosign-installer@f3c664df7af409cb4873aa5068053ba9d61a57b6 #v2.6.0
         with:
-          cosign-release: 'v1.11.0'
+          cosign-release: "v1.11.0"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -84,7 +84,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64,linux/arm64
-
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
