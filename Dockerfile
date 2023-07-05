@@ -8,3 +8,6 @@ RUN dnf clean all
 RUN rm -rf /var/cache/yum
 
 RUN pip3 install --no-cache-dir ostree-push yq
+
+RUN curl https://raw.githubusercontent.com/flatpak/flat-manager/master/flat-manager-client -o /usr/bin/flat-manager-client
+RUN chmod +x /usr/bin/flat-manager-client
